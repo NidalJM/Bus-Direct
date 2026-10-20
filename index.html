@@ -43,6 +43,33 @@
     </header>
 
     <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <section class="lg:col-span-7 flex flex-col gap-6">
+
+            <div class="bg-white rounded-2xl border border-brand-border p-6 shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold">Plan de la Cabine (20 Places)</h2>
+                    <div class="flex items-center gap-2 text-xs font-medium">
+                        <span class="inline-flex items-center gap-1 bg-brand-soft px-2.5 py-1 rounded-full">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Libre
+                        </span>
+                        <span class="inline-flex items-center gap-1 bg-brand-black text-white px-2.5 py-1 rounded-full">
+                            <span class="w-2 h-2 rounded-full bg-white"></span> Occupé
+                        </span>
+                    </div>
+                </div>
+
+                <div class="bg-brand-soft rounded-xl p-4">
+                    <div
+                        class="text-center text-xs font-semibold text-brand-body uppercase tracking-wider mb-4 pb-2 border-b border-brand-border">
+                        Avant du Bus / Chauffeur
+                    </div>
+
+                    <div id="cabin-grid" class="grid grid-cols-4 gap-3 max-w-md mx-auto">
+                    </div>
+                </div>
+            </div>
+
+        </section>
     </main>
 </body>
 
