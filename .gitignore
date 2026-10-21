@@ -2,3 +2,6 @@ node_modules/
 *.log
 .DS_Store
 DESIGN.md
+package.json
+package-lock.json
+tailwind.config.js

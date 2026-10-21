@@ -33,10 +33,12 @@
         class="sticky top-0 z-50 bg-white border-b border-brand-border px-6 py-4 flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center gap-3">
             <span class="text-xl font-bold tracking-tight">BusDirect</span>
-            
+
         </div>
         <div>
-            <span class="flex bg-brand-soft px-4 py-1.5 rounded-full text-sm font-medium items-center justify-center">Safi ➔ Marrakech</span>
+            <span
+                class="flex bg-brand-soft px-4 py-1.5 rounded-full text-sm font-medium items-center justify-center">Safi
+                ➔ Marrakech</span>
         </div>
         <div class="flex items-center gap-3">
             <div id="button-cart">
@@ -75,9 +77,10 @@
                         Avant du Bus / Chauffeur
                     </div>
 
-                    <div id="cabin-grid" class="grid grid-cols-[1fr_1fr_24px_1fr_1fr] gap-y-3 gap-x-2 max-w-md mx-auto"></div>
+                    <div id="cabin-grid" class="grid grid-cols-[1fr_1fr_24px_1fr_1fr] gap-y-3 gap-x-2 max-w-md mx-auto">
                     </div>
                 </div>
+            </div>
             </div>
             <div class="bg-white rounded-2xl border border-brand-border p-6 shadow-sm">
                 <h3 class="text-md font-bold mb-3">Liste des Passagers</h3>
@@ -114,6 +117,82 @@
                         Annuler
                     </button>
                 </div>
+
+                <!-- Reserver -->
+
+                <form id="form-reserve" class="flex flex-col gap-4">
+                    <h3 class="text-md font-bold">Réserver une place</h3>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-body mb-1">Nom du passager *</label>
+                        <input type="text" id="reserve-name" placeholder="Ex: Karim Bennani"
+                            class="w-full bg-brand-softer border border-brand-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-black">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-body mb-1">Choix du siège</label>
+                        <select id="reserve-seat"
+                            class="w-full bg-brand-softer border border-brand-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-black">
+                            <option value="">Premier siège libre (Automatique)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-brand-black text-white font-medium py-3 rounded-full hover:bg-neutral-800 transition-colors mt-2 text-sm">
+                        Valider la réservation
+                    </button>
+
+                </form>
+
+
+                <!-- Modifier -->
+
+                <form id="form-edit" class="hidden flex-col gap-4">
+                    <h3 class="text-md font-bold">Modifier une réservation</h3>
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-body mb-1">Passager existant *</label>
+                        <select id="edit-passenger" required
+                            class="w-full bg-brand-softer border border-brand-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-black">
+                            <option value="">Sélectionner un passager</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-body mb-1">Nouveau nom *</label>
+                        <input type="text" id="edit-name" required placeholder="Nouveau nom"
+                            class="w-full bg-brand-softer border border-brand-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-black">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-body mb-1">Changer de siège</label>
+                        <select id="edit-seat"
+                            class="w-full bg-brand-softer border border-brand-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-black">
+                            <option value="">Garder le siège actuel</option>
+                        </select>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-brand-black text-white font-medium py-3 rounded-full hover:bg-neutral-800 transition-colors mt-2 text-sm">
+                        Enregistrer les modifications
+                    </button>
+                </form>
+
+
+
+                <!-- ANNULER -->
+
+
+                <form id="form-cancel" class="hidden flex-col gap-4">
+                    <h3 class="text-md font-bold">Annuler une réservation</h3>
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-body mb-1">Réservation à annuler *</label>
+                        <select id="cancel-passenger" required
+                            class="w-full bg-brand-softer border border-brand-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-black">
+                            <option value="">Sélectionner une réservation</option>
+                        </select>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-red-600 text-white font-medium py-3 rounded-full hover:bg-red-700 transition-colors mt-2 text-sm">
+                        Libérer le siège
+                    </button>
+                </form>
     </main>
 </body>
 
