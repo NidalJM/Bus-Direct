@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const reserveName = document.getElementById('reserve-name');
     const reserveSeat = document.getElementById('reserve-seat');
-
+    const editName = document.getElementById('edit-passenger');
+    const editSeat = document.getElementById('edit-seat');
 
     for (let i = 1; i <= 20; i++) {
         const option = document.createElement('option');
@@ -47,6 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
         reserveSeat.appendChild(option);
     }
 
+        for (let i = 1; i <= 20; i++) {
+        const optionEdit = document.createElement('option');
+        optionEdit.value = i;
+        optionEdit.textContent = `Siège ${i}`;
+        editSeat.appendChild(optionEdit);
+    }
 
     function hideForms() {
         formReserver.classList.add('hidden');
@@ -62,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hideForms();
         formReserver.classList.remove('hidden');
         tabReserver.className = "flex-1 py-2 text-sm font-medium rounded-full bg-brand-black text-white transition-all";
+        
     });
 
     tabEdit.addEventListener('click', () => {
@@ -108,7 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="bg-white/20 text-[10px] font-semibold px-2 py-0.5 rounded-full truncate max-w-[70px]">${passengerName}</span>
             `;
 
-            const tr = document.createElement('tr')
+
+            const option = document.createElement('option');
+            option.value = selectedSeatId;
+            option.textContent = `${passengerName} (Siège ${selectedSeatId})`;
+            editName.appendChild(option);
+
+
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-passenger-seat', selectedSeatId);
             tr.innerHTML = `
                             <td class="px-4 py-2.5 rounded-l-lg">${passengerName}</td>
                             <td class="px-4 py-2.5">${selectedSeatId}</td>
