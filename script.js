@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const reserveName = document.getElementById('reserve-name');
     const reserveSeat = document.getElementById('reserve-seat');
 
-    
+
     for (let i = 1; i <= 20; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reserveSeat.appendChild(option);
     }
 
-    
+
     function hideForms() {
         formReserver.classList.add('hidden');
         formEdit.classList.add('hidden');
@@ -76,21 +76,25 @@ document.addEventListener('DOMContentLoaded', () => {
         tabCancel.className = "flex-1 py-2 text-sm font-medium rounded-full bg-brand-black text-white transition-all";
     });
 
-    
+
     formReserver.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const passengerName = reserveName.value.trim();
-        const selectedSeatId = reserveSeat.value;
+        let selectedSeatId = reserveSeat.value;
+        let seatCard = document.querySelector(`[data-seat="${selectedSeatId}"]`);
 
         if (!passengerName) {
             alert("Veuillez entrer le nom du passager.");
             return;
         }
 
-        const seatCard = document.querySelector(`[data-seat="${selectedSeatId}"]`);
+        if (selectedSeatId === "") {
+                seatCard = document.querySelector('[data-occupied="false"]');
+                selectedSeatId = seatCard.getAttribute('data-seat');
+        }
 
-        if (seatCard.getAttribute('data-occupied') === "true")  {
+        if (seatCard.getAttribute('data-occupied') === "true") {
             alert("Seat Already Reserved")
             return;
         }
