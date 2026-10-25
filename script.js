@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const editName = document.getElementById('edit-name');
     const editSeat = document.getElementById('edit-seat');
 
+    const cancelPassenger = document.getElementById('cancel-passenger');
+    
     for (let i = 1; i <= 20; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -145,6 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="px-4 py-2.5 rounded-r-lg text-right">Actions</td>
             `;
             passengerTableBody.prepend(tr);
+
+            const cancelOption = document.createElement('option');
+            cancelOption.value = selectedSeatId;
+            cancelOption.textContent = `${passengerName} (Siege) ${selectedSeatId}`
+            cancelPassenger.appendChild(cancelOption);
+
         }
 
         formReserver.reset();
@@ -218,4 +226,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         formEdit.reset();
     });
+
+    // formCancel.addEventListener('submit', (e) => {
+    //     e.preventDefault();
+
+    //     const deleteseat = cancelPassenger.value;
+
+
+    //     formCancel.reset();
+    // });
+
+
+
 });
