@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="text-xs font-bold">Siège ${selectedSeatId}</span>
                 <span class="bg-white/20 text-[10px] font-semibold px-2 py-0.5 rounded-full truncate max-w-[70px]">${passengerName}</span>
             `;
+            localStorage.setItem(`seat_${selectedSeatId}`, passengerName)
 
             const option = document.createElement('option');
             option.value = selectedSeatId;
@@ -166,15 +167,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const newName = editName.value.trim();
         const newSeatId = editSeat.value;
 
-        if (!oldSeatId) {
-            alert("Veuillez sélectionner un passager.");
-            return;
-        }
+        // if (!oldSeatId) {
+        //     alert("Veuillez sélectionner un passager.");
+        //     return;
+        // }
 
-        if (!newName) {
-            alert("Veuillez entrer un nouveau nom.");
-            return;
-        }
+        // if (!newName) {
+        //     alert("Veuillez entrer un nouveau nom.");
+        //     return;
+        // }
 
         let targetSeatId = oldSeatId;
 
@@ -196,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             targetSeatId = newSeatId;
+            localStorage.removeItem(`seat_${oldSeatId}`)
         }
 
         const targetSeatCard = document.querySelector(`[data-seat="${targetSeatId}"]`);
@@ -206,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="text-xs font-bold">Siège ${targetSeatId}</span>
             <span class="bg-white/20 text-[10px] font-semibold px-2 py-0.5 rounded-full truncate max-w-[70px]">${newName}</span>
         `;
+        localStorage.setItem(`seat_${targetSeatId}`, newName)
 
         const tableRow = document.querySelector(`tr[data-passenger-seat="${oldSeatId}"]`);
         if (tableRow) {
@@ -227,15 +230,42 @@ document.addEventListener('DOMContentLoaded', () => {
         formEdit.reset();
     });
 
-    // formCancel.addEventListener('submit', (e) => {
-    //     e.preventDefault();
+    formCancel.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    //     const deleteseat = cancelPassenger.value;
+        const deleteSeatId = cancelPassenger.value;
 
+        // if (!deleteSeatId){
 
-    //     formCancel.reset();
-    // });
+        // }
 
+        const seatCard = document.querySelector(`[data-seat="${deleteSeatId}"]`);
+        if (seatCard) {
+            seatCard.className = "bg-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
+            seatCard.setAttribute('data-occupied', 'false');
+            seatCard.innerHTML = `
+            <i class="fa-solid fa-chair text-brand-body text-lg"></i>
+            <span class="text-xs font-bold">Siège ${deleteSeatId}</span>
+            <span class="bg-brand-soft text-[10px] font-semibold text-brand-body px-2 py-0.5 rounded-full">Libre</span>
+            `
+        }
+
+        const tableRow = document.querySelector(`tr[data-passenger-seat="${deleteSeatId}"]`);
+        if (tableRow) {
+            tableRow.remove();
+        }
+
+        const editOpt = editPassenger.querySelector(`option[value="${deleteSeatId}"]`)
+        if (editOpt) {
+            editOpt.remove();
+        }
+        
+        const cancelOpt = cancelPassenger.querySelector(`option[value="${deleteSeatId}"]`)
+        if (cancelOpt) {
+            cancelOpt.remove();
+        }
+        formCancel.reset();
+    });
 
 
 });
