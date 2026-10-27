@@ -30,38 +30,38 @@
 
 <body class="bg-brand-canvas text-brand-black antialiased font-sans min-h-screen">
     <header
-        class="sticky top-0 z-50 bg-white border-b border-brand-border px-6 py-4 flex flex-wrap justify-between items-center gap-4">
+        class="sticky top-0 z-50 bg-white border-b border-brand-border px-4 sm:py-6 py-3 flex flex-wrap justify-between items-center gap-2 sm:gap-4">
         <div class="flex items-center gap-3">
-            <span class="text-xl font-bold tracking-tight">BusDirect</span>
+            <span class="text-lg sm:text-xl font-bold tracking-tight">BusDirect</span>
 
         </div>
         <div>
             <span
-                class="flex bg-brand-soft px-4 py-1.5 rounded-full text-sm font-medium items-center justify-center">Safi
+                class="flex bg-brand-soft px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-sm font-medium items-center justify-center">Safi
                 ➔ Marrakech</span>
         </div>
-        <div class="flex items-center gap-3">
-            <div id="button-cart">
-                <a href="cart.html" class="bg-brand-soft px-4 py-1.5 rounded-full">
+        <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+            <!-- <div id="button-cart">
+                <a href="cart.html" class="bg-brand-soft px-3 sm:px-4 py-1.5 rounded-full">
                     <i class="fa-solid fa-ticket"></i>
                 </a>
-            </div>
-            <div id="stat-seats" class="bg-brand-soft px-4 py-1.5 rounded-full text-sm font-medium">
+            </div> -->
+            <div id="stat-seats" class="bg-brand-soft px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium">
                 Places libres: <span id="count-free" class="font-bold"></span> / 20
             </div>
-            <div id="stat-revenue" class="bg-brand-black text-white px-4 py-1.5 rounded-full text-sm font-medium">
+            <div id="stat-revenue" class="bg-brand-black text-white px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium">
                 Recette: <span id="count-revenue" class="font-bold">0</span> DH
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="max-w-7xl mx-auto p-3 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8">
         <section class="lg:col-span-7 flex flex-col gap-6">
 
-            <div class="bg-white rounded-2xl border border-brand-border p-6 shadow-sm">
+            <div class="bg-white rounded-2xl border border-brand-border p4 sm:p-6 shadow-sm">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-lg font-bold">Plan de la Cabine (20 Places)</h2>
-                    <div class="flex items-center gap-2 text-xs font-medium">
+                    <h2 class="text-lg font-bold p-3">Plan de la Cabine (20 Places)</h2>
+                    <div class="flex items-center gap-2 text-xs font-medium p-3">
                         <span class="inline-flex items-center gap-1 bg-brand-soft px-2.5 py-1 rounded-full">
                             <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Libre
                         </span>
@@ -88,7 +88,7 @@
                     <table class="w-full text-sm text-left">
                         <thead class="bg-brand-soft text-brand-body text-xs uppercase">
                             <tr>
-                                <th class="px-4 py-2.5 rounded-l-lg">Passager</th>
+                                <th class="px-4 py-2.5">Passager</th>
                                 <th class="px-4 py-2.5">Siège</th>
                                 <th class="px-4 py-2.5">Tarif</th>
                             </tr>

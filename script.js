@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         seatCard.setAttribute('data-seat', seatNum);
         if (savedName) {
-            seatCard.className = "bg-brand-black text-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
+            seatCard.className = "bg-brand-black text-white border border-brand-border rounded-xl p-1.5 sm:p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
 
             seatCard.setAttribute('data-occupied', 'true');
             seatCard.innerHTML = `
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
             passengerTableBody.prepend(tr);
         } else {
-            seatCard.className = "bg-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
+            seatCard.className = "bg-white border border-brand-border rounded-xl p-1.5 sm:p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
             seatCard.setAttribute('data-occupied', 'false');
             seatCard.innerHTML = `
                 <i class="fa-solid fa-chair text-brand-body text-lg"></i>
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (seatCard) {
-            seatCard.className = "bg-brand-black text-white rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer transition-all shadow-sm";
+            seatCard.className = "bg-brand-black text-white rounded-xl p-1.5 sm:p-3 flex flex-col items-center justify-center gap-1 cursor-pointer transition-all shadow-sm";
             seatCard.setAttribute('data-occupied', 'true');
             seatCard.innerHTML = `
                 <i class="fa-solid fa-user text-lg"></i>
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const oldSeatCard = document.querySelector(`[data-seat="${oldSeatId}"]`);
-            oldSeatCard.className = "bg-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
+            oldSeatCard.className = "bg-white border border-brand-border rounded-xl p-1.5 sm:p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
             oldSeatCard.setAttribute('data-occupied', 'false');
             oldSeatCard.innerHTML = `
                 <i class="fa-solid fa-chair text-brand-body text-lg"></i>
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const seatCard = document.querySelector(`[data-seat="${deleteSeatId}"]`);
         if (seatCard) {
-            seatCard.className = "bg-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
+            seatCard.className = "bg-white border border-brand-border rounded-xl p-1.5 sm:p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
             seatCard.setAttribute('data-occupied', 'false');
             seatCard.innerHTML = `
             <i class="fa-solid fa-chair text-brand-body text-lg"></i>
