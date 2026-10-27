@@ -24,7 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const editSeat = document.getElementById('edit-seat');
 
     const cancelPassenger = document.getElementById('cancel-passenger');
-     
+
+    //Toasts
+    const ptoast = document.getElementById('toast1');
+    const ptoast2 = document.getElementById('toast2');
+    const ptoast3 = document.getElementById('toast3');
+
     // if (!cabinGrid) return;
 
     for (let i = 1; i <= 20; i++) {
@@ -145,7 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let seatCard = document.querySelector(`[data-seat="${selectedSeatId}"]`);
 
         if (!passengerName) {
-            alert("Veuillez entrer le nom du passager.");
+            ptoast.textContent = "Veuiller entrer le nom du passager.";
+            setTimeout(()=> {
+                ptoast.textContent = "";
+            }, 3000);
+            // alert("Veuillez entrer le nom du passager.");
             return;
         }
 
@@ -155,7 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (seatCard.getAttribute('data-occupied') === "true") {
-            alert("Seat Already Reserved");
+            ptoast.textContent = "Seat Already Reserved"
+            setTimeout(()=> {
+                ptoast.textContent = "";
+            }, 3000);
+            // alert("Seat Already Reserved");
             return;
         }
 
@@ -190,8 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelPassenger.appendChild(cancelOption);
 
         }
-
-        formReserver.reset();
+            ptoast.textContent = "Seat Reserved Successfully"
+            setTimeout(()=> {
+                ptoast.textContent = "";
+            }, 3000);
+            formReserver.reset();
     });
 
 
@@ -218,7 +234,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const newSeatCard = document.querySelector(`[data-seat="${newSeatId}"]`);
 
             if (newSeatCard.getAttribute('data-occupied') === "true") {
-                alert("Le nouveau siège sélectionné est déjà occupé.");
+            ptoast2.textContent = "Seat Already occupied"
+            setTimeout(()=> {
+                ptoast2.textContent = "";
+            }, 3000);
+            formReserver.reset();
                 return;
             }
 
@@ -268,6 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedCancelOption.textContent = `${newName} (Siège ${targetSeatId})`;
         }
 
+            ptoast2.textContent = "Seat Edited Successfully"
+            setTimeout(()=> {
+                ptoast2.textContent = "";
+            }, 3000);
+            formReserver.reset();
 
         formEdit.reset();
     });
@@ -308,6 +333,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cancelOpt) {
             cancelOpt.remove();
         }
+            ptoast3.textContent = "Seat Deleted Successfully"
+            setTimeout(()=> {
+                ptoast3.textContent = "";
+            }, 3000);
+            formReserver.reset();
         formCancel.reset();
     });
 
