@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const cabinGrid = document.getElementById('cabin-grid');
-   
+
     //Tabs
     const tabReserver = document.getElementById('tab-reserve');
     const tabEdit = document.getElementById('tab-edit');
@@ -30,6 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const ptoast2 = document.getElementById('toast2');
     const ptoast3 = document.getElementById('toast3');
 
+    //Stats
+    const countFree = document.getElementById('count-free');
+    const countRevenue = document.getElementById('count-revenue');
+
+    function updateStats() {
+        const occupiedCount = document.querySelectorAll('[data-occupied="true"]').length;
+        const freeSeats = 20 - occupiedCount;
+
+        if (countFree) countFree.textContent = freeSeats;
+        if (countRevenue) countRevenue.textContent = occupiedCount * 80;
+    }
     // if (!cabinGrid) return;
 
     for (let i = 1; i <= 20; i++) {
@@ -38,35 +49,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const seatCard = document.createElement('div');
 
         seatCard.setAttribute('data-seat', seatNum);
-        if (savedName)  { 
-        seatCard.className = "bg-brand-black text-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
-        
-        seatCard.setAttribute('data-occupied', 'true');
-        seatCard.innerHTML = `
+        if (savedName) {
+            seatCard.className = "bg-brand-black text-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
+
+            seatCard.setAttribute('data-occupied', 'true');
+            seatCard.innerHTML = `
         <i class="fa-solid fa-user text-lg"></i>
          <span class="text-xs font-bold">Siège ${seatNum}</span>
         <span class="bg-white/20 text-[10px] font-semibold px-2 py-0.5 rounded-full truncate max-w-[70px]">${savedName}</span>
         `;
-        const editOpt = document.createElement('option');
-        editOpt.value = seatNum;
-        editOpt.textContent = `${savedName} (Siege ${seatNum})`;
-        editPassenger.appendChild(editOpt);
-    
-        const cancelOpt = document.createElement('option');
-        cancelOpt.value =seatNum;
-        cancelOpt.textContent = `${savedName} (Siege ${seatNum})`;
-        cancelPassenger.appendChild(cancelOpt);
+            const editOpt = document.createElement('option');
+            editOpt.value = seatNum;
+            editOpt.textContent = `${savedName} (Siege ${seatNum})`;
+            editPassenger.appendChild(editOpt);
 
-        const tr = document.createElement('tr');
-        tr.setAttribute('data-passenger-seat', seatNum);
-        tr.innerHTML = `
+            const cancelOpt = document.createElement('option');
+            cancelOpt.value = seatNum;
+            cancelOpt.textContent = `${savedName} (Siege ${seatNum})`;
+            cancelPassenger.appendChild(cancelOpt);
+
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-passenger-seat', seatNum);
+            tr.innerHTML = `
                          <td class="px-4 py-2.5 rounded-l-lg">${savedName}</td>
                          <td class="px-4 py-2.5">Siège ${seatNum}</td>
                          <td class="px-4 py-2.5">80 DH </td>
-                         <td class="px-4 py-2.5 rounded-r-lg text-right">Actions</td>
         `;
-        passengerTableBody.prepend(tr);
-    } else {
+            passengerTableBody.prepend(tr);
+        } else {
             seatCard.className = "bg-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
             seatCard.setAttribute('data-occupied', 'false');
             seatCard.innerHTML = `
@@ -81,9 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const aisleSpacer = document.createElement('div');
             cabinGrid.appendChild(aisleSpacer);
         }
-        
-    }
 
+    }
+    updateStats();
     for (let i = 1; i <= 20; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -151,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!passengerName) {
             ptoast.textContent = "Veuiller entrer le nom du passager.";
-            setTimeout(()=> {
+            setTimeout(() => {
                 ptoast.textContent = "";
             }, 3000);
             // alert("Veuillez entrer le nom du passager.");
@@ -165,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (seatCard.getAttribute('data-occupied') === "true") {
             ptoast.textContent = "Seat Already Reserved"
-            setTimeout(()=> {
+            setTimeout(() => {
                 ptoast.textContent = "";
             }, 3000);
             // alert("Seat Already Reserved");
@@ -193,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="px-4 py-2.5 rounded-l-lg">${passengerName}</td>
                 <td class="px-4 py-2.5">Siège ${selectedSeatId}</td>
                 <td class="px-4 py-2.5">80 DH </td>
-                <td class="px-4 py-2.5 rounded-r-lg text-right">Actions</td>
             `;
             passengerTableBody.prepend(tr);
 
@@ -203,11 +212,12 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelPassenger.appendChild(cancelOption);
 
         }
-            ptoast.textContent = "Seat Reserved Successfully"
-            setTimeout(()=> {
-                ptoast.textContent = "";
-            }, 3000);
-            formReserver.reset();
+        ptoast.textContent = "Seat Reserved Successfully"
+        setTimeout(() => {
+            ptoast.textContent = "";
+        }, 3000);
+        formReserver.reset();
+        updateStats();
     });
 
 
@@ -234,11 +244,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const newSeatCard = document.querySelector(`[data-seat="${newSeatId}"]`);
 
             if (newSeatCard.getAttribute('data-occupied') === "true") {
-            ptoast2.textContent = "Seat Already occupied"
-            setTimeout(()=> {
-                ptoast2.textContent = "";
-            }, 3000);
-            formReserver.reset();
+                ptoast2.textContent = "Seat Already occupied"
+                setTimeout(() => {
+                    ptoast2.textContent = "";
+                }, 3000);
+                formReserver.reset();
                 return;
             }
 
@@ -272,7 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="px-4 py-2.5 rounded-l-lg">${newName}</td>
                 <td class="px-4 py-2.5">Siège ${targetSeatId}</td>
                 <td class="px-4 py-2.5">80 DH </td>
-                <td class="px-4 py-2.5 rounded-r-lg text-right">Actions</td>
             `;
         }
 
@@ -288,11 +297,11 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedCancelOption.textContent = `${newName} (Siège ${targetSeatId})`;
         }
 
-            ptoast2.textContent = "Seat Edited Successfully"
-            setTimeout(()=> {
-                ptoast2.textContent = "";
-            }, 3000);
-            formReserver.reset();
+        ptoast2.textContent = "Seat Edited Successfully"
+        setTimeout(() => {
+            ptoast2.textContent = "";
+        }, 3000);
+        formReserver.reset();
 
         formEdit.reset();
     });
@@ -328,18 +337,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (editOpt) {
             editOpt.remove();
         }
-        
+
         const cancelOpt = cancelPassenger.querySelector(`option[value="${deleteSeatId}"]`)
         if (cancelOpt) {
             cancelOpt.remove();
         }
-            ptoast3.textContent = "Seat Deleted Successfully"
-            setTimeout(()=> {
-                ptoast3.textContent = "";
-            }, 3000);
-            formReserver.reset();
+        ptoast3.textContent = "Seat Deleted Successfully"
+        setTimeout(() => {
+            ptoast3.textContent = "";
+        }, 3000);
         formCancel.reset();
+        updateStats();
     });
-
 
 });
