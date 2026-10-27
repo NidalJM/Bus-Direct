@@ -1,25 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const cabinGrid = document.getElementById('cabin-grid');
-    if (!cabinGrid) return;
-
-    for (let i = 1; i <= 20; i++) {
-        const seatNum = i;
-        const seatCard = document.createElement('div');
-        seatCard.className = "bg-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
-        seatCard.setAttribute('data-seat', seatNum);
-        seatCard.setAttribute('data-occupied', 'false');
-        seatCard.innerHTML = `
-            <i class="fa-solid fa-chair text-brand-body text-lg"></i>
-            <span class="text-xs font-bold">Siège ${seatNum}</span>
-            <span class="bg-brand-soft text-[10px] font-semibold text-brand-body px-2 py-0.5 rounded-full">Libre</span>
-        `;
-        cabinGrid.appendChild(seatCard);
-        if (i % 4 === 2) {
-            const aisleSpacer = document.createElement('div');
-            cabinGrid.appendChild(aisleSpacer);
-        }
-    }
-
+   
     //Tabs
     const tabReserver = document.getElementById('tab-reserve');
     const tabEdit = document.getElementById('tab-edit');
@@ -43,7 +24,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const editSeat = document.getElementById('edit-seat');
 
     const cancelPassenger = document.getElementById('cancel-passenger');
+     
+    // if (!cabinGrid) return;
+
+    for (let i = 1; i <= 20; i++) {
+        const seatNum = i;
+        const savedName = localStorage.getItem(`seat_${seatNum}`);
+        const seatCard = document.createElement('div');
+
+        seatCard.setAttribute('data-seat', seatNum);
+        if (savedName)  { 
+        seatCard.className = "bg-brand-black text-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
+        
+        seatCard.setAttribute('data-occupied', 'true');
+        seatCard.innerHTML = `
+        <i class="fa-solid fa-user text-lg"></i>
+         <span class="text-xs font-bold">Siège ${seatNum}</span>
+        <span class="bg-white/20 text-[10px] font-semibold px-2 py-0.5 rounded-full truncate max-w-[70px]">${savedName}</span>
+        `;
+        const editOpt = document.createElement('option');
+        editOpt.value = seatNum;
+        editOpt.textContent = `${savedName} (Siege ${seatNum})`;
+        editPassenger.appendChild(editOpt);
     
+        const cancelOpt = document.createElement('option');
+        cancelOpt.value =seatNum;
+        cancelOpt.textContent = `${savedName} (Siege ${seatNum})`;
+        cancelPassenger.appendChild(cancelOpt);
+
+        const tr = document.createElement('tr');
+        tr.setAttribute('data-passenger-seat', seatNum);
+        tr.innerHTML = `
+                         <td class="px-4 py-2.5 rounded-l-lg">${savedName}</td>
+                         <td class="px-4 py-2.5">Siège ${seatNum}</td>
+                         <td class="px-4 py-2.5">80 DH </td>
+                         <td class="px-4 py-2.5 rounded-r-lg text-right">Actions</td>
+        `;
+        passengerTableBody.prepend(tr);
+    } else {
+            seatCard.className = "bg-white border border-brand-border rounded-xl p-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-brand-black transition-all shadow-sm";
+            seatCard.setAttribute('data-occupied', 'false');
+            seatCard.innerHTML = `
+                <i class="fa-solid fa-chair text-brand-body text-lg"></i>
+                <span class="text-xs font-bold">Siège ${seatNum}</span>
+                <span class="bg-brand-soft text-[10px] font-semibold text-brand-body px-2 py-0.5 rounded-full">Libre</span>
+            `;
+        }
+
+        cabinGrid.appendChild(seatCard);
+        if (i % 4 === 2) {
+            const aisleSpacer = document.createElement('div');
+            cabinGrid.appendChild(aisleSpacer);
+        }
+        
+    }
+
     for (let i = 1; i <= 20; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -227,6 +262,13 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedOption.textContent = `${newName} (Siège ${targetSeatId})`;
         }
 
+        const selectedCancelOption = cancelPassenger.querySelector(`option[value="${oldSeatId}"]`);
+        if (selectedOption) {
+            selectedCancelOption.value = targetSeatId;
+            selectedCancelOption.textContent = `${newName} (Siège ${targetSeatId})`;
+        }
+
+
         formEdit.reset();
     });
 
@@ -249,6 +291,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="bg-brand-soft text-[10px] font-semibold text-brand-body px-2 py-0.5 rounded-full">Libre</span>
             `
         }
+
+        localStorage.removeItem(`seat_${deleteSeatId}`)
 
         const tableRow = document.querySelector(`tr[data-passenger-seat="${deleteSeatId}"]`);
         if (tableRow) {
